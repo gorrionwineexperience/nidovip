@@ -7,16 +7,29 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#faf6f0;--ink:#2f1d14;--accent:#7a1c1c;--paper:#fffdfa;--warm1:#f2e1c1;--warm2:#e7b57a;--shadow:0 6px 25px rgba(0,0,0,.12)
+      --bg:#faf6f0;--ink:#2f1d14;--accent:#7a1c1c;--paper:#fffdfa;
+      --warm1:#f2e1c1;--warm2:#e7b57a;--shadow:0 6px 25px rgba(0,0,0,.12);
     }
-    html,body{height:100%}
-    body{background:var(--bg);font-family:'Montserrat',sans-serif;color:var(--ink);margin:0;overflow-x:hidden}
+    html,body{height:100%;margin:0;padding:0}
+    body{background:var(--bg);font-family:'Montserrat',sans-serif;color:var(--ink);overflow-x:hidden}
 
     /* ===== Overlay de acceso ===== */
-    .overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(120deg, rgba(242,225,193,.96), rgba(231,181,122,.96));z-index:9999;transition:opacity .8s ease}
-    .card{background:var(--paper);padding:2.2rem 2rem;border-radius:1.5rem;box-shadow:var(--shadow);text-align:center;width:min(92vw,360px);opacity:0;transform:translateY(18px);animation:cardIn .7s forwards}
+    .overlay{
+      position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(120deg, rgba(242,225,193,.96), rgba(231,181,122,.96));
+      z-index:9999;transition:opacity .8s ease;
+      flex-direction:column;gap:1.5rem;
+    }
+    .overlay img{
+      width:140px;height:auto;animation:floatUp 1s ease forwards;
+    }
+    .card{
+      background:var(--paper);padding:2rem 2rem 2.4rem;border-radius:1.5rem;
+      box-shadow:var(--shadow);text-align:center;width:min(92vw,360px);
+      opacity:0;transform:translateY(18px);animation:cardIn .7s .4s forwards;
+    }
     @keyframes cardIn{to{opacity:1;transform:translateY(0)}}
-    .card h1{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--accent);margin:0 0 1.2rem}
+    .card h1{font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--accent);margin:0 0 1.2rem}
     .field{margin:.4rem 0 1rem}
     .input{width:100%;padding:.9rem 1rem;border:2px solid #e3c9a6;border-radius:.8rem;background:#fff8f0;font-size:1rem;outline:none;transition:border-color .2s}
     .input:focus{border-color:var(--accent)}
@@ -26,98 +39,98 @@
     .loading{display:none;margin-top:.4rem;color:#5c4033;font-size:.95rem}
     .spinner{display:inline-block;width:1em;height:1em;border:.18em solid #e3c9a6;border-top-color:var(--accent);border-radius:50%;animation:spin 1s linear infinite;vertical-align:-.2em;margin-right:.5rem}
     @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes floatUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
 
+    /* ===== Pantalla de bienvenida ===== */
+    .welcome-screen{
+      position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+      flex-direction:column;text-align:center;background:linear-gradient(135deg,var(--warm1),var(--warm2));
+      z-index:9000;opacity:0;pointer-events:none;transition:opacity 1.5s ease;
+    }
+    .welcome-screen.visible{opacity:1;pointer-events:auto;}
+
+    /* Efecto del corcho */
+    .cork-scene{
+      position:relative;width:100px;height:180px;margin-bottom:2rem;
+    }
+    .halo{
+      position:absolute;top:80px;left:50%;width:0;height:0;
+      transform:translateX(-50%);
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(122,28,28,0.3) 0%, transparent 70%);
+      animation:haloExpand 2s ease-out forwards;
+    }
+    @keyframes haloExpand{
+      0%{width:0;height:0;opacity:0.9;}
+      60%{width:200px;height:200px;opacity:0.4;}
+      100%{width:260px;height:260px;opacity:0;}
+    }
+    .cork{
+      position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+      width:40px;height:60px;
+      background:linear-gradient(180deg,#e3b97b,#c08a4b);
+      border-radius:10px;
+      animation:popCork 1.4s ease-out forwards;
+      box-shadow:inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+    @keyframes popCork{
+      0%{transform:translate(-50%,0);}
+      30%{transform:translate(-50%,-90px) rotate(-10deg);}
+      45%{transform:translate(-50%,-110px) rotate(6deg);}
+      60%{transform:translate(-50%,-90px);}
+      100%{transform:translate(-50%,-140px) rotate(0);}
+    }
+
+    .welcome-text{
+      font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--accent);
+      margin-top:1rem;animation:fadeInUp 2.4s 1s forwards;opacity:0;
+    }
+    .welcome-sub{
+      color:#5c4033;font-size:1rem;margin-top:.5rem;opacity:0;
+      animation:fadeInUp 2.4s 1.4s forwards;
+    }
+    @keyframes fadeInUp{
+      to{opacity:1;transform:translateY(0)}
+      from{opacity:0;transform:translateY(20px)}
+    }
+
+    /* ===== Main general ===== */
     main{opacity:0;pointer-events:none;transform:translateY(20px);transition:opacity 1s ease, transform 1s ease}
     body.auth main{opacity:1;pointer-events:auto;transform:translateY(0)}
     body.auth .overlay{opacity:0;pointer-events:none}
 
-    /* ===== Estilo general ===== */
-    header{text-align:center;padding:3rem 1rem 2rem;background:linear-gradient(120deg, var(--warm1), var(--warm2));clip-path:polygon(0 0, 100% 0, 100% 85%, 0 100%);box-shadow:0 3px 12px rgba(0,0,0,0.1)}
+    header{text-align:center;padding:3rem 1rem 2rem;background:linear-gradient(120deg, var(--warm1), var(--warm2));
+      clip-path:polygon(0 0, 100% 0, 100% 85%, 0 100%);box-shadow:0 3px 12px rgba(0,0,0,0.1)}
     header h1{font-family:'Playfair Display',serif;font-size:2.8rem;color:#7a1c1c;margin:0}
     header p{font-size:1.1rem;color:#5c4033;margin-top:.5rem}
 
-    .vino-section{background:var(--paper);border-radius:1.5rem;margin:3rem auto;max-width:950px;box-shadow:var(--shadow);overflow:hidden}
-    .vino-header{background:linear-gradient(135deg,#f5e2c2,#dcae7b,#cf8265);padding:2rem;clip-path:polygon(0 0,100% 0,100% 85%,0 100%)}
-    .vino-header h2{font-family:'Playfair Display',serif;font-size:2rem;color:#7a1c1c;margin-bottom:.2rem}
-    .vino-header p{margin:0;font-size:1rem;color:#4b2a1a}
-    .vino-content{padding:2rem 2.5rem;position:relative}
-    .vino-detalles{background:#f8efe7;border-left:5px solid #7a1c1c;padding:1rem 1.2rem;margin-bottom:2rem;border-radius:.5rem}
-    .vino-detalles p{margin:.3rem 0;font-size:.95rem}
-    blockquote{font-style:italic;color:#7a1c1c;background:#fff4ea;padding:.8rem 1rem;border-left:4px solid #7a1c1c;margin:1rem 0;border-radius:.4rem;opacity:0;transform:translateY(20px);transition:opacity 1s ease,transform 1s ease}
-    blockquote.visible{opacity:1;transform:translateY(0)}
-
-    /* Piedras Coloradas variante */
-    #piedras .vino-header{background:linear-gradient(135deg,#e7bfa8,#c96f4b,#7b2c21)}
-    #piedras blockquote{border-left-color:#7b2c21;color:#7b2c21;background:#fff3f0}
-
-    /* Spotify y mapa */
-    .spotify-wrapper,.map-wrapper{
-      text-align:center;margin:2rem 0;
-      opacity:0;transform:translateY(20px);
-      transition:opacity 1s ease,transform 1s ease;
-    }
-    .spotify-wrapper.visible,.map-wrapper.visible{opacity:1;transform:translateY(0)}
-    .spotify-wrapper h4,.map-wrapper h4{
-      font-family:'Playfair Display',serif;color:#7a1c1c;
-      font-size:1.1rem;margin-bottom:.8rem;letter-spacing:.3px;
-    }
-    .spotify-player,.map-embed{
-      display:inline-block;width:100%;max-width:700px;border-radius:1rem;
-      overflow:hidden;box-shadow:0 6px 15px rgba(0,0,0,0.1);
-    }
-    .map-caption {
-      font-family:'Playfair Display',serif;
-      font-size:1rem;
-      color:#5c4033;
-      margin-top:.8rem;
-      opacity:0;
-      transition:opacity 1s ease;
-    }
-    .map-wrapper.visible .map-caption {opacity:1;}
-
-    /* ✨ Ficción Fermentada */
-    .ficcion-fermentada {
-      text-align: center;
-      margin-top: 3rem;
-      padding: 2rem 1rem;
-      border-top: 2px dashed rgba(122,28,28,0.2);
-    }
-    .ficcion-fermentada .svg-deco {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto 1rem;
-      opacity: 0.9;
-      animation: fadeInUp 1s ease forwards;
-    }
-    .ficcion-fermentada svg {width:100%;height:auto;display:block;}
-    .ficcion-fermentada h3 {
-      font-family:'Playfair Display',serif;font-size:1.8rem;color:#7a1c1c;margin-bottom:0.5rem;
-    }
-    .ficcion-fermentada h4 {
-      font-family:'Playfair Display',serif;color:#934b00;font-style:italic;margin-bottom:1.5rem;
-    }
-    .ficcion-fermentada p {
-      max-width:750px;margin:0.9rem auto;line-height:1.7;color:#4b2a1a;font-size:1rem;
-    }
-
-    iframe{border:0}
-    footer{text-align:center;padding:3rem 1rem;background:#efe2d5;color:#5b3a28;font-size:.95rem;letter-spacing:.5px;border-top:3px solid #c69a74}
+    footer{text-align:center;padding:3rem 1rem;background:#efe2d5;color:#5b3a28;font-size:.95rem;
+      letter-spacing:.5px;border-top:3px solid #c69a74}
     footer a{color:#7a1c1c;text-decoration:none;font-weight:600}
-
-    @keyframes fadeInUp {from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-    @media(max-width:700px){.vino-content{padding:1.5rem}.vino-header h2{font-size:1.5rem}}
   </style>
 </head>
+
 <body>
-  <!-- Overlay -->
+  <!-- Login -->
   <div class="overlay" role="dialog" aria-modal="true">
+    <img src="logoredondo.png" alt="Gorrión Wine Experience Logo">
     <div class="card">
-      <h1>🕊️ Gorrión Wine Experience</h1>
+      <h1>Acceso al Nido</h1>
       <div class="error" id="gateError">Contraseña incorrecta. Inténtalo de nuevo.</div>
       <div class="field"><input id="pwd" class="input" type="password" placeholder="Contraseña"></div>
       <button class="btn" id="enterBtn">Entrar</button>
       <div class="loading" id="loadingMsg"><span class="spinner"></span>Descorchando la experiencia...</div>
     </div>
+  </div>
+
+  <!-- Pantalla de bienvenida con animación -->
+  <div class="welcome-screen" id="welcomeScreen">
+    <div class="cork-scene">
+      <div class="halo"></div>
+      <div class="cork"></div>
+    </div>
+    <div class="welcome-text">🕊️ Bienvenido a tu Nido...</div>
+    <div class="welcome-sub">descorchando tu alpiste 🍷</div>
   </div>
 
   <main>
@@ -126,145 +139,9 @@
       <p>Una travesía entre el frescor de Rueda y la fuerza de Almansa · Gorrión Wine Experience</p>
     </header>
 
-    <!-- La Caprichosa -->
-    <section id="caprichosa" class="vino-section">
-      <div class="vino-header">
-        <h2>Palacio de Bornos · La Caprichosa Verdejo 2024</h2>
-        <p>Blanco · D.O. Rueda (Castilla y León)</p>
-      </div>
-      <div class="vino-content">
-        <div class="vino-detalles">
-          <p><strong>Tipo de Vino:</strong> Blanco</p>
-          <p><strong>Denominación de Origen:</strong> D.O. Rueda (Castilla y León)</p>
-          <p><strong>Variedad:</strong> 100% Verdejo</p>
-          <p><strong>Año:</strong> 2024</p>
-          <p><strong>Graduación:</strong> 13.5%</p>
-          <p><strong>Tipo de Botella:</strong> Bordelesa</p>
-          <p><strong>Servicio:</strong> 10–12 °C</p>
-          <p><strong>Maridaje sugerido:</strong> mariscos, pescados, foie, quesos curados.</p>
-          <p><strong>Maridaje musical:</strong> <em>Amor Papaya</em> — Carlos Sadness (with Caloncho)</p>
-          <blockquote>“Si la vida es fruta, que sea papaya con verdejo.”</blockquote>
-
-          <div class="spotify-wrapper">
-            <h4>🎧 Escucha mientras catas</h4>
-            <div class="spotify-player">
-              <iframe style="border-radius:12px"
-                src="https://open.spotify.com/embed/track/5uktfjnSHsfmc42wnGsC8l?utm_source=generator&theme=0"
-                width="100%" height="152" loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-              </iframe>
-            </div>
-          </div>
-        </div>
-
-        <h3>Información General</h3>
-        <p>Palacio de Bornos La Caprichosa Verdejo 2024 nace de viñas en vaso con más de tres décadas de historia, plantadas en suelos con abundante piedra y textura franco arenosa. La vendimia se realiza manualmente y los racimos son seleccionados cuidadosamente en bodega antes de iniciar una fermentación controlada de 15 días en depósitos de acero inoxidable a 14 °C. El vino permanece luego 4 meses sobre sus lías, ganando complejidad y volumen.</p>
-        <p>Con más de 40 años de trayectoria, Palacio de Bornos, perteneciente al grupo Bornos Viñedos y Bodegas, ha sido un firme defensor de la D.O. Rueda y de su variedad emblemática: la verdejo. Sus vinos, elaborados a partir de los mejores viñedos de la región, se exportan a los cinco continentes y cuentan con el reconocimiento de la crítica especializada.</p>
-
-        <div class="map-wrapper">
-          <h4>📍 Viñedos de Rueda — Origen del Verdejo</h4>
-          <div class="map-embed">
-            <iframe width="100%" height="576" src="https://maphub.net/embed_h/oIXtG3mwk4Kd72n1?panel=1&panel_closed=1"></iframe>
-          </div>
-          <p class="map-caption">Explora los viñedos donde nació este Verdejo de espíritu libre y aroma solar.</p>
-        </div>
-
-        <div class="ficcion-fermentada">
-          <div class="svg-deco" aria-hidden="true">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-              <path d="M32 2c-8 0-14 6-14 14 0 7 4 12 10 13v14h-8a2 2 0 0 0 0 4h20a2 2 0 0 0 0-4h-8V29c6-1 10-6 10-13 0-8-6-14-14-14z" fill="#7a1c1c"/>
-              <rect x="30" y="43" width="4" height="16" rx="2" fill="#7a1c1c"/>
-              <rect x="22" y="59" width="20" height="3" rx="1.5" fill="#7a1c1c"/>
-            </svg>
-          </div>
-          <h3><strong>Ficción Fermentada</strong></h3>
-          <h4><em>“La Uva Aventurera (versión sin corcho y con actitud)”</em></h4>
-
-          <p><em>Todo empezó una tarde achicharrante en Rueda. El sol pegaba tan fuerte que las uvas estaban más pegajosas que un WhatsApp de tu ex, y las cigarras daban su after como si cobraran por decibelio.</em></p>
-          <p><em>Todas las uvas estaban tranquilitas, soñando con sus barricas de roble y sus etiquetas con serifas… menos una.</em></p>
-          <p><em>Se llamaba Lola Verdejo, y era más rebelde que un gorrión con resaca y menos filtro que una influencer en feria del vino.</em></p>
-          <p><em>Mientras sus compañeras suspiraban:<br>—“Ay, ojalá acabar en una cena con ostras…”</em></p>
-          <p><em>Lola gritaba desde su racimo:<br>—“¡Ostras las que te voy a dar! ¡Yo quiero terraza, croquetas, y risas hasta que alguien baile sobre la mesa!”</em></p>
-          <p><em>Y claro, cuando llegó la vendimia, Lola no se dejó exprimir sin dejar su marca registrada. Su jugo olía a domingo sin culpa, sabía a chiste contado con copa en mano y tenía ese toque chispeante de quien ya va por la segunda (o tercera) ronda.</em></p>
-          <p><em>El bodeguero la probó y se le escapó una carcajada:<br>—“Esto no es vino… ¡esto es una verbena embotellada!”</em></p>
-          <p><em>Así nació <strong>La Caprichosa</strong>, el verdejo que no pide permiso, ni perdón, ni temperatura ambiente. Se sirve bien frío, porque hasta las fiestas más locas necesitan refrescarse. No se comparte: se defiende a tragos. Y si alguien te pide un poco… dile que hay bares para eso.</em></p>
-          <p><em>Cada sorbo es un brindis por Lola, la uva que dijo “no pienso ser vino de mantel, yo vine a liarla”.</em></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Piedras Coloradas -->
-    <section id="piedras" class="vino-section">
-      <div class="vino-header">
-        <h2>Tintoralba · Piedras Coloradas Garnacha Tintorera 2023</h2>
-        <p>Tinto · D.O. Almansa (Castilla-La Mancha)</p>
-      </div>
-      <div class="vino-content">
-        <div class="vino-detalles">
-          <p><strong>Tipo de Vino:</strong> Tinto</p>
-          <p><strong>Denominación de Origen:</strong> D.O. Almansa</p>
-          <p><strong>Variedad:</strong> 100% Garnacha Tintorera</p>
-          <p><strong>Año:</strong> 2023</p>
-          <p><strong>Graduación:</strong> 12.5%</p>
-          <p><strong>Tipo de Barrica:</strong> Roble americano</p>
-          <p><strong>Tipo de Botella:</strong> Bordelesa</p>
-          <p><strong>Enólogo:</strong> Blanca Martín Paradela</p>
-          <p><strong>Servicio:</strong> 16–17 °C</p>
-          <p><strong>Maridaje sugerido:</strong> Ternera, carnes blancas, pastas y quesos semicurados.</p>
-          <p><strong>Maridaje musical:</strong> <em>Sé Incomprendido</em> — Grupo Morrigans</p>
-          <blockquote>“Incomprendido hoy. Icónico mañana.”</blockquote>
-          <div class="spotify-wrapper">
-            <h4>🎧 Escucha mientras catas</h4>
-            <div class="spotify-player">
-              <iframe style="border-radius:12px"
-                src="https://open.spotify.com/embed/track/1bvrdAMzcbONE4FqyPbcGt?utm_source=generator&theme=0"
-                width="100%" height="152" loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-              </iframe>
-            </div>
-          </div>
-        </div>
-
-        <h3>Información General</h3>
-        <p>Piedras Coloradas 2023 nace de un mosaico de viñedos ecológicos situados entre los 900 y 1000 metros de altitud en el término de Higueruela, uno de los enclaves más singulares de la D.O. Almansa. Cultivado sin regadío sobre suelos arcillo-calcáreos y arenosos, refleja la autenticidad de la garnacha tintorera en su versión más natural y respetuosa con el entorno.</p>
-        <p>La elaboración de Piedras Coloradas 2023 se ha realizado de forma muy respetuosa, con la mínima intervención: las uvas se cosechan manualmente en cajas, se someten a una maceración pre-fermentativa en frío y fermentan en depósitos de acero inoxidable. La fermentación maloláctica se lleva a cabo en barricas de roble americano, donde el vino permanece durante 3 meses antes de afinarse en depósitos de hormigón.</p>
-        <p>El resultado es un vino versátil, fresco y equilibrado, ideal para acompañar desde tapas hasta platos principales. Un vino que transmite la frescura y autenticidad de Higueruela, elaborado con respeto absoluto por la tierra, y que ya ha sido reconocido por la crítica con galardones como la Medalla de Oro en VinEspaña 2025.</p>
-
-        <div class="map-wrapper">
-          <h4>📍 Viñedos de Almansa — Tierra de la Garnacha Tintorera</h4>
-          <div class="map-embed">
-            <iframe width="100%" height="576" src="https://maphub.net/embed_h/A0iRcHgaFr0es0XH?panel=1&panel_closed=1&button=0"></iframe>
-          </div>
-          <p class="map-caption">Descubre las tierras secas y luminosas que dan vida a esta tintorera inconfundible.</p>
-        </div>
-
-        <div class="ficcion-fermentada">
-          <div class="svg-deco" aria-hidden="true">
-            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-              <path d="M32 2c-8 0-14 6-14 14 0 7 4 12 10 13v14h-8a2 2 0 0 0 0 4h20a2 2 0 0 0 0-4h-8V29c6-1 10-6 10-13 0-8-6-14-14-14z" fill="#7a1c1c"/>
-              <rect x="30" y="43" width="4" height="16" rx="2" fill="#7a1c1c"/>
-              <rect x="22" y="59" width="20" height="3" rx="1.5" fill="#7a1c1c"/>
-            </svg>
-          </div>
-          <h3><strong>Ficción Fermentada</strong></h3>
-          <h4><em>“La Yaya Colorá, vino con navaja, chancla y mucho buenismo”</em></h4>
-
-          <p><em>En Almansa, donde el sol no calienta: te da collejas, y las piedras son tan colorás que si las miras mucho te broncean, creció una cepa que no conocía el miedo ni el pudor.</em></p>
-          <p><em>Se llamaba Doña Eulalia Tintorera, pero en el pueblo todos la llamaban “la Yaya Colorá”, porque cuando se enfadaba, el aire se ponía del mismo color que su vino.</em></p>
-          <p><em>Una abuela con carácter de trinchera: bolsillo con rosario, otro con navaja, y la chancla lista por si alguien decía una tontería.</em></p>
-          <p><em>Mientras las demás uvas soñaban con bodegas finas y etiquetas en francés, ella mascaba polvo y soltaba:<br>—“Yo no nací pa posar en copas de cristal… ¡yo nací pa alegrar gargantas y poner mejillas colorás!”</em></p>
-          <p><em>Cuando llegó la vendimia, la Yaya no se dejó pisar: soltó un “¡ni se te ocurra, muchacho!” y su jugo salió tan oscuro y poderoso que el bodeguero se santiguó.</em></p>
-          <p><em>Lo probó, sonrió y dijo:<br>—“Esto no es vino… esto es una bofetá con denominación de origen.”</em></p>
-          <p><em>Así nació <strong>Piedras Coloradas</strong>, el tinto más buenismo de la Mancha. Fuerte, terroso, con cuerpo de gladiadora y alma de sobremesa larga.</em></p>
-          <p><em>No es vino para selfies ni para paladares finos. Es vino para quienes saben que el sabor de la vida lleva algo de polvo, risas y riesgo de chancla.</em></p>
-          <p><em>Cada trago tiene aroma a campo seco, a navaja bien guardá, y a ese cariño de abuela que te riñe, te cura y luego te dice: “Venga, chiquillo, bebe otro poco… que está buenismo.”</em></p>
-        </div>
-      </div>
-    </section>
-
     <footer>
       © 2025 Gorrión Wine Experience · 
-      <a href="https://gorrionwine.crd.co">https://gorrionwine.crd.co</a> 
+      <a href="https://gorrionwine.crd.co">https://gorrionwine.crd.co</a>
     </footer>
   </main>
 
@@ -275,22 +152,49 @@
     const input = document.getElementById('pwd');
     const errorBox = document.getElementById('gateError');
     const loadingMsg = document.getElementById('loadingMsg');
+    const welcomeScreen = document.getElementById('welcomeScreen');
 
-    async function hashPassword(text){
-      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
-      return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+    async function safeHash(text) {
+      try {
+        const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+        return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+      } catch {
+        let hash = 0;
+        for (let i = 0; i < text.length; i++) {
+          hash = (hash << 5) - hash + text.charCodeAt(i);
+          hash |= 0;
+        }
+        return hash.toString(16);
+      }
     }
 
-    if(localStorage.getItem(LS_KEY)==='true'){document.body.classList.add('auth');}
+    if(localStorage.getItem(LS_KEY)==='true'){showWelcome();}
 
     async function tryLogin(){
       const val=(input.value||'').trim();
-      const h=await hashPassword(val);
-      if(h===HASHED_PASSWORD){
-        errorBox.style.display='none';input.disabled=true;formBtn.disabled=true;formBtn.style.display='none';
-        loadingMsg.style.display='block';localStorage.setItem(LS_KEY,'true');
-        setTimeout(()=>{document.body.classList.add('auth');},800);
-      }else{errorBox.style.display='block';input.value='';input.focus();}
+      const h=await safeHash(val);
+      const validHashes=[HASHED_PASSWORD,'-356c69c1'];
+      if(validHashes.includes(h)){
+        errorBox.style.display='none';
+        input.disabled=true;formBtn.disabled=true;formBtn.style.display='none';
+        loadingMsg.style.display='block';
+        localStorage.setItem(LS_KEY,'true');
+        setTimeout(()=>{showWelcome();},800);
+      }else{
+        errorBox.style.display='block';input.value='';input.focus();
+      }
+    }
+
+    function showWelcome(){
+      document.querySelector('.overlay').style.opacity='0';
+      welcomeScreen.classList.add('visible');
+      setTimeout(()=>{
+        welcomeScreen.style.opacity='0';
+        setTimeout(()=>{
+          welcomeScreen.style.display='none';
+          document.body.classList.add('auth');
+        },1200);
+      },2800);
     }
 
     formBtn.addEventListener('click',tryLogin);
@@ -298,14 +202,6 @@
       if(e.key==='Enter')tryLogin();
       if(e.key==='Escape'){errorBox.style.display='none';input.value='';}
     });
-
-    // Scroll animaciones
-    const observer=new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){e.target.classList.add('visible');}
-      });
-    },{threshold:0.2});
-    document.querySelectorAll('.spotify-wrapper,.map-wrapper,blockquote').forEach(el=>observer.observe(el));
   </script>
 </body>
 </html>
