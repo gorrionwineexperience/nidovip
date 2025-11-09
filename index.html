@@ -64,6 +64,16 @@
       display:inline-block;width:100%;max-width:700px;border-radius:1rem;
       overflow:hidden;box-shadow:0 6px 15px rgba(0,0,0,0.1);
     }
+    .map-caption {
+      font-family:'Playfair Display',serif;
+      font-size:1rem;
+      color:#5c4033;
+      margin-top:.8rem;
+      opacity:0;
+      transition:opacity 1s ease;
+    }
+    .map-wrapper.visible .map-caption {opacity:1;}
+
     iframe{border:0}
 
     footer{text-align:center;padding:3rem 1rem;background:#efe2d5;color:#5b3a28;font-size:.95rem;letter-spacing:.5px;border-top:3px solid #c69a74}
@@ -124,7 +134,7 @@
         <h3>Información General</h3>
         <p>Palacio de Bornos La Caprichosa Verdejo 2024 nace de viñas en vaso con más de tres décadas de historia...</p>
 
-        <!-- 🌍 Mapa -->
+        <!-- 🌍 Mapa de Rueda -->
         <div class="map-wrapper">
           <h4>📍 Viñedos de Rueda — Origen del Verdejo</h4>
           <div class="map-embed">
@@ -132,11 +142,8 @@
               src="https://maphub.net/embed_h/oIXtG3mwk4Kd72n1?panel=1&panel_closed=1">
             </iframe>
           </div>
+          <p class="map-caption">Explora los viñedos donde nació este Verdejo de espíritu libre y aroma solar.</p>
         </div>
-
-        <h3>Ficción Fermentada</h3>
-        <h4>“La Uva Aventurera (versión sin corcho y con actitud)”</h4>
-        <p>Todo empezó una tarde achicharrante en Rueda...</p>
       </div>
     </section>
 
@@ -167,8 +174,20 @@
             </div>
           </div>
         </div>
+
         <h3>Información General</h3>
         <p>Tintoralba Piedras Coloradas se elabora a partir de Garnacha Tintorera cultivada...</p>
+
+        <!-- 🗺️ Mapa de Almansa -->
+        <div class="map-wrapper">
+          <h4>📍 Viñedos de Almansa — Tierra de Garnacha Tintorera</h4>
+          <div class="map-embed">
+            <iframe width="100%" height="576"
+              src="https://maphub.net/embed_h/A0iRcHgaFr0es0XH?panel=1&panel_closed=1&button=0">
+            </iframe>
+          </div>
+          <p class="map-caption">Recorre las tierras rojas y pedregosas que dan carácter a este tinto con alma aventurera.</p>
+        </div>
       </div>
     </section>
 
