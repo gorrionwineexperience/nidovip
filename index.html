@@ -143,30 +143,11 @@
         </div>
 
         <h3>Información General</h3>
-        <p>
-          Palacio de Bornos La Caprichosa Verdejo 2024 nace de viñas en vaso con más de tres décadas de historia,
-          plantadas en suelos con abundante piedra y textura franco arenosa. La vendimia se realiza manualmente
-          y los racimos son seleccionados cuidadosamente antes de una fermentación controlada de 15 días a 14 °C.
-          El vino permanece luego 4 meses sobre sus lías, ganando complejidad y volumen.
-        </p>
-        <p>
-          Con más de 40 años de trayectoria, Palacio de Bornos ha sido un firme defensor de la D.O. Rueda
-          y de su variedad emblemática: la verdejo. Sus vinos, elaborados con los mejores viñedos de la región,
-          se exportan a los cinco continentes y cuentan con reconocimiento internacional.
-        </p>
+        <p>Palacio de Bornos La Caprichosa Verdejo 2024 nace de viñas en vaso con más de tres décadas de historia...</p>
 
         <h3>Ficción Fermentada</h3>
         <h4>“La Uva Aventurera (versión sin corcho y con actitud)”</h4>
-        <p>
-          Todo empezó una tarde achicharrante en Rueda. Las uvas soñaban con cenas elegantes, menos una:
-          <strong>Lola Verdejo</strong>. Rebelde, chispeante, sin filtro, decidió que su destino no era una cena con ostras,
-          sino una terraza con risas, croquetas y música.
-        </p>
-        <p>
-          Así nació <strong>La Caprichosa</strong>, el verdejo que no pide permiso ni perdón.
-          Se sirve bien frío, porque hasta las fiestas más locas necesitan refrescarse.
-          No se comparte: se defiende a tragos.
-        </p>
+        <p>Todo empezó una tarde achicharrante en Rueda...</p>
       </div>
     </section>
 
@@ -185,29 +166,27 @@
           <p><strong>Maridaje:</strong> carnes rojas, guisos, quesos curados.</p>
           <p><strong>Maridaje musical:</strong> <em>Pa’ olvidarme de ella</em> — Piso 21 & Christian Nodal</p>
           <blockquote>“Cada piedra en el camino tiene un sorbo esperándote.”</blockquote>
+
+          <!-- 🎧 Bloque Spotify -->
+          <div class="spotify-wrapper">
+            <h4>🎧 Escucha mientras catas</h4>
+            <div class="spotify-player">
+              <iframe
+                style="border-radius:12px"
+                src="https://open.spotify.com/embed/track/1bvrdAMzcbONE4FqyPbcGt?utm_source=generator&theme=0"
+                width="100%" height="152" frameborder="0" loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+              </iframe>
+            </div>
+          </div>
         </div>
 
         <h3>Información General</h3>
-        <p>
-          Tintoralba Piedras Coloradas se elabora a partir de Garnacha Tintorera cultivada en suelos pedregosos
-          y viñedos viejos de altura. Su fermentación controlada conserva su intenso color rubí y su aroma a frutas maduras y monte bajo.
-        </p>
-        <p>
-          Bodegas Tintoralba, referente en la D.O. Almansa, combina tradición cooperativa con innovación sostenible.
-          Piedras Coloradas refleja el espíritu de la tierra: firme, cálido y lleno de vida.
-        </p>
+        <p>Tintoralba Piedras Coloradas se elabora a partir de Garnacha Tintorera cultivada en suelos pedregosos...</p>
 
         <h3>Ficción Fermentada</h3>
         <h4>“El Vino que Rugió entre las Piedras”</h4>
-        <p>
-          Dicen que bajo el sol de Almansa, las piedras no se mueven... hasta que pasa una copa de Tintoralba.
-          En esas tierras, el vino no se bebe: se conquista.
-        </p>
-        <p>
-          Así nació <strong>Piedras Coloradas</strong>, un tinto que no teme al polvo ni al fuego.
-          En su garganta vive un rugido, en su color un atardecer,
-          y en su sabor, la historia de quienes pedalean cuesta arriba solo por bajar gritando “¡Salud!”.
-        </p>
+        <p>Dicen que bajo el sol de Almansa, las piedras no se mueven...</p>
       </div>
     </section>
 
@@ -253,7 +232,7 @@
     formBtn.addEventListener('click', tryLogin);
     input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ tryLogin(); } if(e.key==='Escape'){ errorBox.style.display='none'; input.value=''; } });
 
-    // ✨ Revelar elementos al hacer scroll
+    // ✨ Revelar Spotify y blockquotes al hacer scroll
     document.addEventListener('DOMContentLoaded', () => {
       const revealEls = document.querySelectorAll('.spotify-wrapper, blockquote');
       const observer = new IntersectionObserver(entries => {
