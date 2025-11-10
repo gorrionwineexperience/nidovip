@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pasaporte Gorrión Wine Experience (con API Key segura)</title>
+  <meta name="description" content="Pasaporte digital sincronizado con POAP - Gorrión Wine Experience" />
+  <style>
+    :root{
+      --bg:#f5efe6; --paper:#fffdf8; --ink:#3a2c27; --accent:#b0483b; --olive:#667a4b; --gold:#a67c52; --brick:#cc6e3b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Poppins,system-ui,Arial;background:var(--bg);color:var(--ink);}
+    h1{font-size:clamp(20px,3vw,28px);margin:0;letter-spacing:.5px}
+    header{max-width:1000px;margin:24px auto 8px;padding:0 16px;display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--brick),var(--accent));box-shadow:0 6px 16px rgba(0,0,0,.15)}
+    main.passport{max-width:1000px;margin:16px auto 48px;padding:24px;background:var(--paper);border:2px solid var(--gold);border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,0.08);}
+    .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-bottom:16px}
+    input,button{border:2px solid var(--ink);background:#fff;color:var(--ink);border-radius:12px;padding:10px 12px;font-size:14px;outline:none}
+    button{cursor:pointer}
+    .btn-primary{background:linear-gradient(135deg,var(--brick),var(--accent));color:#fff;border-color:transparent;box-shadow:0 4px 10px rgba(176,72,59,.25)}
+    .progress{display:flex;align-items:center;gap:12px;margin:14px 0 8px}
+    .bar{flex:1;height:10px;border-radius:999px;background:#efe1d2;overflow:hidden}
+    .bar>i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--olive),var(--accent));transition:width .6s ease}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:16px;margin-top:16px}
+    .stamp{background:#f9f3ed;border:2px dashed var(--gold);border-radius:50%;padding:12px;aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;transition:transform .18s ease}
+    .stamp:hover{transform:scale(1.04)}
+    .stamp img{width:88px;height:88px;border-radius:50%;object-fit:cover;filter:grayscale(100%) contrast(90%) opacity(.45);transition:filter .3s ease}
+    .stamp.obtenido img{filter:none}
+    .stamp .name{font-weight:700;font-size:13px;text-align:center}
+    .stamp .meta{font-size:11px;opacity:.8;text-align:center}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"></div>
+    <h1>Pasaporte Enológico · Gorrión Wine Experience</h1>
+  </header>
+
+  <main class="passport">
+    <div class="controls">
+      <input id="walletInput" placeholder="Introduce tu wallet o correo POAP" value="0x9C98F2c06E7B12A6D49B2e3eA8B5E35BBD5F2c1b" />
+      <button class="btn-primary" id="loadBtn">Ver mi pasaporte</button>
+    </div>
+
+    <div class="progress">
+      <strong id="progressLabel">Progreso</strong>
+      <div class="bar"><i id="barFill"></i></div>
+      <span id="progressPct">0%</span>
+    </div>
+
+    <section id="pages">
+      <p style="text-align:center;opacity:.6">Listo para cargar POAPs con tu API Key 🍷</p>
+    </section>
+  </main>
+
+  <script>
+  // ⚙️ Añade aquí tu API key privada antes de subir a GitHub Pages
+  const API_KEY = 'AtbWW4QCuVVPf35H7nfJZnlsONaFFqDxnSM6nUtV5SjepGQPY1SqGhdmdv4izpcOtIQXjo8Km1EUiY0dZGlviqVlKHDiELSZpc92GPkCz9eyuJgWELxNvk92NuRM5brO';
+
+  async function verPasaporte() {
+    const wallet = document.getElementById('walletInput').value.trim();
+    if (!wallet) return alert('Introduce tu wallet o correo.');
+    const pages = document.getElementById('pages');
+    pages.innerHTML = '<p style="text-align:center;opacity:.6">Cargando sellos...</p>';
+
+    try {
+      const res = await fetch(`https://api.poap.tech/actions/scan/${wallet}`, {
+        headers: {
+          'accept': 'application/json',
+          'X-API-Key': API_KEY
+        }
+      });
+
+      if (!res.ok) throw new Error('No se pudieron cargar los POAPs.');
+      const poaps = await res.json();
+
+      const total = poaps.length;
+      const obtenidos = total;
+      const pct = total ? Math.round((obtenidos/total)*100) : 0;
+      document.getElementById('progressLabel').textContent = `${total} sellos obtenidos`;
+      document.getElementById('progressPct').textContent = `${pct}%`;
+      document.getElementById('barFill').style.width = pct + '%';
+
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+      if(total===0){
+        pages.innerHTML = '<p style="text-align:center;opacity:.6">No se encontraron POAPs para esta cuenta.</p>';
+        return;
+      }
+      poaps.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'stamp obtenido';
+        div.innerHTML = `
+          <img src="${p.event.image_url}" alt="${p.event.name}">
+          <div class="name">${p.event.name}</div>
+          <div class="meta">${new Date(p.event.start_date).toLocaleDateString('es-ES')}</div>
+        `;
+        grid.appendChild(div);
+      });
+      pages.innerHTML = '';
+      pages.appendChild(grid);
+    } catch (err) {
+      pages.innerHTML = `<p style='color:#b0483b;text-align:center'>Error al cargar POAPs: ${err.message}<br><small>Verifica tu API Key o intenta nuevamente.</small></p>`;
+    }
+  }
+
+  document.getElementById('loadBtn').addEventListener('click', verPasaporte);
+  window.addEventListener('DOMContentLoaded', verPasaporte);
+  </script>
+</body>
+</html>
