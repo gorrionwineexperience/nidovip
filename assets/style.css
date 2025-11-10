@@ -1,27 +1,32 @@
-/* ===============================
-   GORRIÓN WINE EXPERIENCE — ESTILO GLOBAL
-   =============================== */
+/* ============================================================
+   🕊️ GORRIÓN WINE EXPERIENCE — Estilo unificado
+   Incluye: login, packs, archivo enológico (tarjetas)
+   ============================================================ */
 
+/* === Variables base === */
 :root {
   --bg: #faf6f0;
-  --paper: #fffdfa;
   --ink: #2f1d14;
   --accent: #7a1c1c;
+  --paper: #fffdfa;
   --warm1: #f2e1c1;
   --warm2: #e7b57a;
-  --shadow: 0 6px 25px rgba(0,0,0,.12);
+  --shadow: 0 6px 25px rgba(0, 0, 0, .12);
 }
 
-html, body { height: 100%; }
-body {
-  background: var(--bg);
-  font-family: 'Montserrat', sans-serif;
-  color: var(--ink);
+/* === Reset general === */
+html, body {
+  height: 100%;
   margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
   overflow-x: hidden;
 }
 
-/* ===== Overlay de acceso ===== */
+/* ============================================================
+   🧭 LOGIN / OVERLAY DE ACCESO
+   ============================================================ */
 .overlay {
   position: fixed;
   inset: 0;
@@ -32,6 +37,7 @@ body {
   z-index: 9999;
   transition: opacity .8s ease;
 }
+
 .card {
   background: var(--paper);
   padding: 2.2rem 2rem;
@@ -43,21 +49,23 @@ body {
   transform: translateY(18px);
   animation: cardIn .7s forwards;
 }
+
 @keyframes cardIn {
   to { opacity: 1; transform: translateY(0); }
 }
-.logo {
-  width: 90px;
-  height: 90px;
-  object-fit: contain;
+
+.card img.logo {
+  width: 95px;
   margin-bottom: 1rem;
 }
+
 .card h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: var(--accent);
-  margin: 0 0 1.2rem;
+  margin-bottom: 1.2rem;
 }
+
 .field { margin: .4rem 0 1rem; }
 .input {
   width: 100%;
@@ -68,9 +76,9 @@ body {
   font-size: 1rem;
   outline: none;
   transition: border-color .2s;
-  text-align: center;
 }
 .input:focus { border-color: var(--accent); }
+
 .btn {
   width: 100%;
   padding: .9rem 1rem;
@@ -81,8 +89,10 @@ body {
   font-weight: 700;
   cursor: pointer;
   box-shadow: var(--shadow);
+  transition: background .3s;
 }
 .btn:hover { background: #611616; }
+
 .error {
   display: none;
   color: #7b2c21;
@@ -93,11 +103,14 @@ body {
   font-size: .9rem;
   margin: .4rem 0 1rem;
 }
+
 .loading {
   display: none;
-  margin-top: .4rem;
+  margin-top: .8rem;
   color: #5c4033;
   font-size: .95rem;
+  font-family: 'Playfair Display', serif;
+  line-height: 1.4;
 }
 .spinner {
   display: inline-block;
@@ -123,19 +136,24 @@ body.auth main {
   pointer-events: auto;
   transform: translateY(0);
 }
-body.auth .overlay { opacity: 0; pointer-events: none; }
+body.auth .overlay {
+  opacity: 0;
+  pointer-events: none;
+}
 
-/* ===== Estilo general ===== */
+/* ============================================================
+   🍷 PACKS INDIVIDUALES
+   ============================================================ */
 header {
   text-align: center;
   padding: 3rem 1rem 2rem;
   background: linear-gradient(120deg, var(--warm1), var(--warm2));
   clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
 }
 header h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 2.8rem;
+  font-size: 2.6rem;
   color: var(--accent);
   margin: 0;
 }
@@ -145,7 +163,6 @@ header p {
   margin-top: .5rem;
 }
 
-/* ===== Secciones de vino ===== */
 .vino-section {
   background: var(--paper);
   border-radius: 1.5rem;
@@ -154,10 +171,11 @@ header p {
   box-shadow: var(--shadow);
   overflow: hidden;
 }
+
 .vino-header {
-  background: linear-gradient(135deg, #f5e2c2, #dcae7b, #cf8265);
+  background: linear-gradient(135deg,#f5e2c2,#dcae7b,#cf8265);
   padding: 2rem;
-  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  clip-path: polygon(0 0,100% 0,100% 85%,0 100%);
 }
 .vino-header h2 {
   font-family: 'Playfair Display', serif;
@@ -165,8 +183,17 @@ header p {
   color: #7a1c1c;
   margin-bottom: .2rem;
 }
-.vino-header p { margin: 0; font-size: 1rem; color: #4b2a1a; }
-.vino-content { padding: 2rem 2.5rem; position: relative; }
+.vino-header p {
+  margin: 0;
+  font-size: 1rem;
+  color: #4b2a1a;
+}
+
+.vino-content {
+  padding: 2rem 2.5rem;
+  position: relative;
+}
+
 .vino-detalles {
   background: #f8efe7;
   border-left: 5px solid #7a1c1c;
@@ -175,6 +202,7 @@ header p {
   border-radius: .5rem;
 }
 .vino-detalles p { margin: .3rem 0; font-size: .95rem; }
+
 blockquote {
   font-style: italic;
   color: #7a1c1c;
@@ -189,7 +217,17 @@ blockquote {
 }
 blockquote.visible { opacity: 1; transform: translateY(0); }
 
-/* ===== Spotify y mapa ===== */
+/* Piedras Coloradas variante */
+#piedras .vino-header {
+  background: linear-gradient(135deg,#e7bfa8,#c96f4b,#7b2c21);
+}
+#piedras blockquote {
+  border-left-color: #7b2c21;
+  color: #7b2c21;
+  background: #fff3f0;
+}
+
+/* Spotify y mapas */
 .spotify-wrapper, .map-wrapper {
   text-align: center;
   margin: 2rem 0;
@@ -198,14 +236,14 @@ blockquote.visible { opacity: 1; transform: translateY(0); }
   transition: opacity 1s ease, transform 1s ease;
 }
 .spotify-wrapper.visible, .map-wrapper.visible {
-  opacity: 1; transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 .spotify-wrapper h4, .map-wrapper h4 {
   font-family: 'Playfair Display', serif;
   color: #7a1c1c;
   font-size: 1.1rem;
   margin-bottom: .8rem;
-  letter-spacing: .3px;
 }
 .spotify-player, .map-embed {
   display: inline-block;
@@ -225,7 +263,7 @@ blockquote.visible { opacity: 1; transform: translateY(0); }
 }
 .map-wrapper.visible .map-caption { opacity: 1; }
 
-/* ===== Ficción Fermentada ===== */
+/* Ficción Fermentada */
 .ficcion-fermentada {
   text-align: center;
   margin-top: 3rem;
@@ -233,45 +271,114 @@ blockquote.visible { opacity: 1; transform: translateY(0); }
   border-top: 2px dashed rgba(122,28,28,0.2);
 }
 .ficcion-fermentada h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.8rem;
-  color: #7a1c1c;
-  margin-bottom: 0.5rem;
+  font-family:'Playfair Display',serif;
+  font-size:1.8rem;
+  color:#7a1c1c;
+  margin-bottom:.5rem;
 }
 .ficcion-fermentada h4 {
-  font-family: 'Playfair Display', serif;
-  color: #934b00;
-  font-style: italic;
-  margin-bottom: 1.5rem;
+  font-family:'Playfair Display',serif;
+  color:#934b00;
+  font-style:italic;
+  margin-bottom:1.5rem;
 }
 .ficcion-fermentada p {
-  max-width: 750px;
-  margin: 0.9rem auto;
-  line-height: 1.7;
-  color: #4b2a1a;
-  font-size: 1rem;
+  max-width:750px;
+  margin:.9rem auto;
+  line-height:1.7;
+  color:#4b2a1a;
+  font-size:1rem;
 }
 
-/* ===== Botón de retorno ===== */
+/* Botón volver */
 .volver-archivo {
   text-align: center;
-  margin: 3rem 0 2rem;
+  margin: 3rem 0 4rem;
 }
 .volver-boton {
+  display: inline-block;
   background: var(--accent);
   color: #fff;
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  font-weight: 700;
   text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: .5px;
+  padding: 1rem 2rem;
+  border-radius: .8rem;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: .4px;
+  transition: background .3s, transform .2s;
   box-shadow: var(--shadow);
-  transition: background .3s ease;
 }
-.volver-boton:hover { background: #611616; }
+.volver-boton:hover {
+  background: #611616;
+  transform: translateY(-3px);
+}
 
-footer {
+/* ============================================================
+   🗂️ ARCHIVO ENOLÓGICO (INDEX)
+   ============================================================ */
+.archivo-header {
+  text-align: center;
+  padding: 3rem 1rem 2rem;
+}
+.archivo-logo {
+  width: 110px;
+  margin-bottom: 1rem;
+}
+.archivo-header h1 {
+  font-family: 'Playfair Display', serif;
+  color: var(--accent);
+  font-size: 2.4rem;
+  margin: 0;
+}
+.archivo-header p {
+  color: #5c4033;
+  margin-top: .4rem;
+}
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem 2.5rem 4rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.tarjeta {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: var(--paper);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .3s, box-shadow .3s;
+}
+.tarjeta:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,.15);
+}
+.thumb {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+.tarjeta-info {
+  padding: 1.3rem;
+}
+.tarjeta-info h3 {
+  font-family: 'Playfair Display', serif;
+  color: var(--accent);
+  font-size: 1.2rem;
+  margin: 0 0 .4rem;
+}
+.tarjeta-info p {
+  font-size: .95rem;
+  color: #4b2a1a;
+  line-height: 1.4;
+}
+
+/* Footer */
+footer, .archivo-footer {
   text-align: center;
   padding: 3rem 1rem;
   background: #efe2d5;
@@ -280,14 +387,17 @@ footer {
   letter-spacing: .5px;
   border-top: 3px solid #c69a74;
 }
-footer a {
-  color: #7a1c1c;
+footer a, .archivo-footer a {
+  color: var(--accent);
   text-decoration: none;
   font-weight: 600;
 }
 
-@keyframes fadeInUp { from {opacity: 0; transform: translateY(20px)} to {opacity: 1; transform: translateY(0)} }
-@media(max-width:700px) {
+/* ============================================================
+   📱 RESPONSIVE
+   ============================================================ */
+@media(max-width:700px){
   .vino-content { padding: 1.5rem; }
   .vino-header h2 { font-size: 1.5rem; }
+  header h1 { font-size: 2rem; }
 }
