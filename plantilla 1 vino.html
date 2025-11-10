@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pack Simple Base · Gorrión Wine Experience</title>
+  <title>Pack [NOMBRE DEL PACK] · Gorrión Wine Experience</title>
   <link rel="icon" type="image/png" href="./assets/logoredondo.png">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/style.css">
 </head>
 
 <body>
+  <!-- Overlay de acceso -->
   <div class="overlay" role="dialog" aria-modal="true">
     <div class="card">
       <img src="./assets/logoredondo.png" alt="Logo Gorrión" class="logo">
@@ -25,58 +26,75 @@
     </div>
   </div>
 
+  <!-- Contenido principal -->
   <main>
     <header>
-      <h1>[Nombre del Pack o del Vino]</h1>
-      <p>[Descripción breve o eslogan] · Gorrión Wine Experience</p>
+      <h1>[NOMBRE DEL PACK]</h1>
+      <p>[Breve descripción o lema del pack]</p>
     </header>
 
-    <section id="vino" class="vino-section">
+    <!-- Sección de vino principal -->
+    <section class="vino-section">
       <div class="vino-header">
-        <h2>[Nombre de Bodega] · [Nombre del Vino]</h2>
+        <h2>[Nombre de la Bodega] · [Nombre del Vino] [Año]</h2>
         <p>[Tipo de vino] · [Denominación de Origen]</p>
       </div>
 
       <div class="vino-content">
         <div class="vino-detalles">
-          <p><strong>Tipo de Vino:</strong> ...</p>
-          <p><strong>Variedad:</strong> ...</p>
-          <p><strong>Año:</strong> ...</p>
-          <p><strong>Graduación:</strong> ...</p>
-          <p><strong>Servicio:</strong> ...</p>
-          <p><strong>Maridaje sugerido:</strong> ...</p>
-          <p><strong>Maridaje musical:</strong> <em>...</em> — [Artista]</p>
-          <blockquote>“Frase o cita inspirada.”</blockquote>
+          <p><strong>Tipo de Vino:</strong> [Tipo]</p>
+          <p><strong>Denominación de Origen:</strong> [D.O.]</p>
+          <p><strong>Variedad:</strong> [Variedades]</p>
+          <p><strong>Año:</strong> [Año]</p>
+          <p><strong>Graduación:</strong> [Grados %]</p>
+          <p><strong>Tipo de Botella:</strong> [Formato]</p>
+          <p><strong>Servicio:</strong> [Temperatura de servicio]</p>
+          <p><strong>Maridaje sugerido:</strong> [Platos recomendados]</p>
+          <p><strong>Maridaje musical:</strong> <em>[Canción]</em> — [Artista]</p>
+          <blockquote>“[Frase del vino o cita inspiracional]”</blockquote>
 
+          <!-- Spotify -->
           <div class="spotify-wrapper">
             <h4>🎧 Escucha mientras catas</h4>
             <div class="spotify-player">
               <iframe style="border-radius:12px"
-                src="https://open.spotify.com/embed/track/[ID_DE_CANCION]?utm_source=generator&theme=0"
+                src="[URL de Spotify embed]"
                 width="100%" height="152" loading="lazy"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+              </iframe>
             </div>
           </div>
         </div>
 
+        <!-- Información general -->
         <h3>Información General</h3>
-        <p>[Texto descriptivo del vino, elaboración, historia de la bodega...]</p>
+        <p>[Descripción técnica del vino, método de elaboración, bodega, viñedos...]</p>
+        <p>[Más información, curiosidades o notas de cata.]</p>
 
+        <!-- Mapa -->
         <div class="map-wrapper">
-          <h4>📍 Origen del Vino</h4>
+          <h4>📍 [Zona o Viñedos de origen]</h4>
           <div class="map-embed">
-            <iframe width="100%" height="576" src="[URL_DEL_MAPA_EMBEBIDO]"></iframe>
+            <iframe width="100%" height="576" src="[URL de mapa Maphub]" frameborder="0"></iframe>
           </div>
-          <p class="map-caption">[Texto sobre el viñedo o región.]</p>
+          <p class="map-caption">[Texto descriptivo del mapa o de la zona.]</p>
         </div>
 
+        <!-- Ficción Fermentada -->
         <div class="ficcion-fermentada">
           <h3><strong>Ficción Fermentada</strong></h3>
-          <h4><em>“[Título de la historia ficticia]”</em></h4>
-          <p><em>[Texto narrativo estilo Gorrión Wine Experience.]</em></p>
+          <h4><em>“[Título de la historia]”</em></h4>
+          <p><em>[Texto de la historia o relato fermentado del vino.]</em></p>
         </div>
       </div>
     </section>
+
+    <!-- Botón de retorno -->
+    <div class="volver-archivo">
+      <a href="https://gorrionwinepack.carrd.co/" class="volver-boton">
+        VOLVER AL ARCHIVO ENOLÓGICO DEL GORRIÓN
+      </a>
+    </div>
 
     <footer>
       © 2025 Gorrión Wine Experience · 
