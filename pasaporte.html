@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pasaporte Gorrión Wine Experience (Sellos descorchados)</title>
+  <meta name="description" content="Pasaporte digital sincronizado con POAP - Gorrión Wine Experience" />
+  <style>
+    :root{
+      --bg:#f5efe6; --paper:#fffdf8; --ink:#3a2c27; --accent:#b0483b; --olive:#667a4b; --gold:#a67c52; --brick:#cc6e3b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Poppins,system-ui,Arial;background:var(--bg);color:var(--ink);}
+    h1{font-size:clamp(20px,3vw,28px);margin:0;letter-spacing:.5px}
+    header{max-width:1000px;margin:24px auto 8px;padding:0 16px;display:flex;align-items:center;gap:12px}
+    .logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--brick),var(--accent));box-shadow:0 6px 16px rgba(0,0,0,.15)}
+    main.passport{max-width:1000px;margin:16px auto 48px;padding:24px;background:var(--paper);border:2px solid var(--gold);border-radius:18px;box-shadow:0 8px 24px rgba(0,0,0,0.08);}
+    .controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-bottom:16px}
+    input,button{border:2px solid var(--ink);background:#fff;color:var(--ink);border-radius:12px;padding:10px 12px;font-size:14px;outline:none}
+    button{cursor:pointer}
+    .btn-primary{background:linear-gradient(135deg,var(--brick),var(--accent));color:#fff;border-color:transparent;box-shadow:0 4px 10px rgba(176,72,59,.25)}
+
+    /* Botón grande de salida */
+    .exit-btn {
+      display: block;
+      margin: 32px auto 0;
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      background: linear-gradient(135deg,var(--brick),var(--accent));
+      color: #fff;
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(176,72,59,0.25);
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+      text-align: center;
+      text-decoration: none;
+    }
+    .exit-btn:hover {
+      transform: scale(1.04);
+      box-shadow: 0 8px 20px rgba(176,72,59,0.35);
+    }
+
+    /* Sello cuadrado tipo carta */
+    .seal {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 130px;
+      height: 130px;
+      margin: 0 auto 20px;
+      background: linear-gradient(145deg, #b9935b, #d8b778);
+      border: 3px solid #8f6b3f;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      color: #fff;
+      text-align: center;
+      animation: reveal 0.8s ease;
+      position: relative;
+    }
+    .seal-number {
+      font-size: 38px;
+      font-weight: 800;
+      color: #fff;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    }
+    .seal-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      letter-spacing: 0.6px;
+      margin-top: 4px;
+    }
+    @keyframes reveal {
+      from { opacity: 0; transform: scale(1.05); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Sellos */
+    .grid {
+      display: grid;
+      justify-content: center;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 180px));
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .grid:has(.stamp:only-child) {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+    .stamp {
+      width: 160px;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 6px;
+      margin: 0 auto;
+      transition: transform .18s ease;
+      cursor: pointer;
+    }
+    .stamp:hover { transform: scale(1.04); }
+    .stamp img {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    .stamp .name { font-weight: 700; font-size: 13px; text-align: center; }
+    .stamp .meta { font-size: 11px; opacity: .8; text-align: center; }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: var(--paper);
+      border-radius: 16px;
+      max-width: 400px;
+      width: 90%;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      animation: fadeIn .3s ease;
+    }
+    .modal-content img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+    .modal-content h2 {
+      font-size: 18px;
+      margin: 8px 0 4px;
+    }
+    .modal-content p {
+      font-size: 14px;
+      opacity: .9;
+    }
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--ink);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"></div>
+    <h1>Pasaporte Enológico · Gorrión Wine Experience</h1>
+  </header>
+
+  <main class="passport">
+    <div class="controls">
+      <input id="walletInput" placeholder="Introduce tu wallet o correo POAP"/>
+      <button class="btn-primary" id="loadBtn">Ver mi pasaporte</button>
+    </div>
+
+    <!-- Sello cuadrado -->
+    <div id="sealContainer"></div>
+
+    <section id="pages">
+      <p style="text-align:center;opacity:.6">Listo para cargar POAPs con tu API Key 🍷</p>
+    </section>
+
+    <a href="https://gorrionwine.crd.co/" class="exit-btn">SALIR DEL PASAPORTE</a>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="poapModal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeModal">✖</span>
+      <img id="modalImage" src="" alt="POAP" />
+      <h2 id="modalTitle"></h2>
+      <p id="modalDate"></p>
+      <p id="modalDesc"></p>
+    </div>
+  </div>
+
+  <script>
+  const API_KEY = 'AtbWW4QCuVVPf35H7nfJZnlsONaFFqDxnSM6nUtV5SjepGQPY1SqGhdmdv4izpcOtIQXjo8Km1EUiY0dZGlviqVlKHDiELSZpc92GPkCz9eyuJgWELxNvk92NuRM5brO';
+
+  async function verPasaporte() {
+    const wallet = document.getElementById('walletInput').value.trim();
+    if (!wallet) return alert('Introduce tu wallet o correo.');
+    const pages = document.getElementById('pages');
+    const sealContainer = document.getElementById('sealContainer');
+    pages.innerHTML = '<p style="text-align:center;opacity:.6">Cargando sellos...</p>';
+
+    try {
+      const res = await fetch(`https://api.poap.tech/actions/scan/${wallet}`, {
+        headers: { 'accept': 'application/json', 'X-API-Key': API_KEY }
+      });
+      if (!res.ok) throw new Error('No se pudieron cargar los POAPs.');
+      const poaps = await res.json();
+
+      const total = poaps.length;
+      if (total === 0) {
+        sealContainer.innerHTML = '';
+        pages.innerHTML = '<p style="text-align:center;opacity:.6">No se encontraron POAPs para esta cuenta.</p>';
+        return;
+      }
+
+      // Mostrar sello cuadrado
+      sealContainer.innerHTML = `
+        <div class="seal">
+          <div class="seal-number">${total}</div>
+          <div class="seal-text">Sellos descorchados</div>
+        </div>
+      `;
+
+      // Galería de sellos
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+      poaps.forEach(p => {
+        const div = document.createElement('div');
+        div.className = 'stamp obtenido';
+        div.innerHTML = `
+          <img src="${p.event.image_url}" alt="${p.event.name}">
+          <div class="name">${p.event.name}</div>
+          <div class="meta">${new Date(p.event.start_date).toLocaleDateString('es-ES')}</div>
+        `;
+        div.addEventListener('click', () => abrirModal(p));
+        grid.appendChild(div);
+      });
+      pages.innerHTML = '';
+      pages.appendChild(grid);
+
+    } catch (err) {
+      pages.innerHTML = `<p style='color:#b0483b;text-align:center'>Error al cargar POAPs: ${err.message}<br><small>Verifica tu API Key o intenta nuevamente.</small></p>`;
+      sealContainer.innerHTML = '';
+    }
+  }
+
+  function abrirModal(poap) {
+    document.getElementById('modalImage').src = poap.event.image_url;
+    document.getElementById('modalTitle').textContent = poap.event.name;
+    document.getElementById('modalDate').textContent = new Date(poap.event.start_date).toLocaleDateString('es-ES');
+    document.getElementById('modalDesc').textContent = poap.event.description || 'Sin descripción disponible.';
+    document.getElementById('poapModal').classList.add('active');
+  }
+
+  document.getElementById('closeModal').addEventListener('click', () => {
+    document.getElementById('poapModal').classList.remove('active');
+  });
+
+  document.getElementById('poapModal').addEventListener('click', (e) => {
+    if (e.target.id === 'poapModal') {
+      document.getElementById('poapModal').classList.remove('active');
+    }
+  });
+
+  document.getElementById('loadBtn').addEventListener('click', verPasaporte);
+  window.addEventListener('DOMContentLoaded', verPasaporte);
+  </script>
+</body>
+</html>
