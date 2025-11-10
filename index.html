@@ -3,53 +3,72 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Archivo Enológico del Gorrión · Wine Experience</title>
+  <title>Archivo Enológico del Gorrión · Gorrión Wine Experience</title>
   <link rel="icon" type="image/png" href="./assets/logoredondo.png">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/style.css">
 </head>
 
 <body>
-  <header class="index-header">
-    <img src="./assets/logoredondo.png" alt="Logo Gorrión Wine Experience">
-    <h1>Archivo Enológico del Gorrión</h1>
-    <p>Explora los packs y experiencias de cata del Gorrión Wine Experience</p>
-  </header>
+  <!-- Overlay de acceso -->
+  <div class="overlay" role="dialog" aria-modal="true">
+    <div class="card">
+      <img src="./assets/logoredondo.png" alt="Logo Gorrión" class="logo">
+      <h1>Acceso Privado</h1>
+      <div class="error" id="gateError">Contraseña incorrecta. Inténtalo de nuevo.</div>
+      <div class="field">
+        <input id="pwd" class="input" type="password" placeholder="Contraseña">
+      </div>
+      <button class="btn" id="enterBtn">Entrar</button>
+      <div class="loading" id="loadingMsg">
+        <span class="spinner"></span>🕊️ Bienvenido a tu Nido...<br>descorchando tu alpiste 🍷
+      </div>
+    </div>
+  </div>
 
-  <main>
-    <section class="pack-grid">
-      <!-- PACK 1 -->
-      <a href="./pack-entre-ruedas-y-piedras.html" class="pack-card">
-        <img src="./assets/ruedas-piedras-thumb.jpg" alt="Pack Entre Ruedas y Piedras">
-        <div class="content">
-          <h2>Entre Ruedas y Piedras</h2>
-          <p>Un viaje entre el frescor de Rueda y la fuerza de Almansa.</p>
+  <!-- Contenido principal -->
+  <main class="archivo">
+    <header class="archivo-header">
+      <img src="./assets/logoredondo.png" alt="Logo Gorrión" class="archivo-logo">
+      <h1>Archivo Enológico del Gorrión</h1>
+      <p>Explora los packs y vinos del universo <strong>Gorrión Wine Experience</strong>.</p>
+    </header>
+
+    <section class="tarjetas">
+      <!-- Tarjeta 1 -->
+      <a href="pack-entre-ruedas-y-piedras.html" class="tarjeta">
+        <img src="./assets/thumb-entre-ruedas-y-piedras.jpg" alt="Pack Entre Ruedas y Piedras" class="thumb">
+        <div class="tarjeta-info">
+          <h3>Pack Entre Ruedas y Piedras</h3>
+          <p>Una travesía entre el frescor de Rueda y la fuerza de Almansa.</p>
         </div>
       </a>
 
-      <!-- PACK 2 (ejemplo para el futuro) -->
-      <a href="#" class="pack-card">
-        <img src="./assets/pack2-thumb.jpg" alt="Pack La Cata de Puglia">
-        <div class="content">
-          <h2>La Cata de Puglia</h2>
-          <p>Un recorrido por la esencia italiana y sus vinos mediterráneos.</p>
+      <!-- Tarjeta 2 -->
+      <a href="pack-deux-suds.html" class="tarjeta">
+        <img src="./assets/thumb-deux-suds.jpg" alt="Pack Deux Suds" class="thumb">
+        <div class="tarjeta-info">
+          <h3>Pack Deux Suds</h3>
+          <p>El sur francés embotellado: entre la elegancia y el sol.</p>
         </div>
       </a>
 
-      <!-- PACK 3 (ejemplo futuro) -->
-      <a href="#" class="pack-card">
-        <img src="./assets/pack3-thumb.jpg" alt="Pack Las Pájaras del Rioja">
-        <div class="content">
-          <h2>Las Pájaras del Rioja</h2>
-          <p>Selección vibrante con tintos jóvenes y carácter del norte.</p>
+      <!-- Tarjeta 3 -->
+      <a href="pack-cata-de-puglia.html" class="tarjeta">
+        <img src="./assets/thumb-cata-de-puglia.jpg" alt="La Cata de Puglia" class="thumb">
+        <div class="tarjeta-info">
+          <h3>La Cata de Puglia</h3>
+          <p>Un viaje sensorial por el talón de Italia.</p>
         </div>
       </a>
     </section>
+
+    <footer class="archivo-footer">
+      © 2025 Gorrión Wine Experience · 
+      <a href="https://gorrionwine.crd.co">gorrionwine.crd.co</a>
+    </footer>
   </main>
 
-  <footer>
-    © 2025 Gorrión Wine Experience · 
-    <a href="https://gorrionwine.crd.co">gorrionwine.crd.co</a>
-  </footer>
+  <script src="./assets/script.js"></script>
 </body>
 </html>
