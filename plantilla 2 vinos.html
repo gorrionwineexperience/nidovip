@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pack Doble Base · Gorrión Wine Experience</title>
+  <link rel="icon" type="image/png" href="./assets/logoredondo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/style.css">
+</head>
+
+<body>
+  <div class="overlay" role="dialog" aria-modal="true">
+    <div class="card">
+      <img src="./assets/logoredondo.png" alt="Logo Gorrión" class="logo">
+      <h1>Acceso Privado</h1>
+      <div class="error" id="gateError">Contraseña incorrecta. Inténtalo de nuevo.</div>
+      <div class="field">
+        <input id="pwd" class="input" type="password" placeholder="Contraseña">
+      </div>
+      <button class="btn" id="enterBtn">Entrar</button>
+      <div class="loading" id="loadingMsg">
+        <span class="spinner"></span>Descorchando la experiencia...
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <header>
+      <h1>Pack Doble Base</h1>
+      <p>Explora dos vinos, dos historias · Gorrión Wine Experience</p>
+    </header>
+
+    <!-- Vino 1 -->
+    <section id="vino1" class="vino-section">
+      <div class="vino-header">
+        <h2>[Nombre de Bodega] · [Nombre del Vino 1]</h2>
+        <p>[Tipo de vino] · [Denominación de Origen]</p>
+      </div>
+
+      <div class="vino-content">
+        <div class="vino-detalles">
+          <p><strong>Tipo de Vino:</strong> ...</p>
+          <p><strong>Variedad:</strong> ...</p>
+          <p><strong>Año:</strong> ...</p>
+          <p><strong>Graduación:</strong> ...</p>
+          <p><strong>Servicio:</strong> ...</p>
+          <p><strong>Maridaje sugerido:</strong> ...</p>
+          <p><strong>Maridaje musical:</strong> <em>...</em> — [Artista]</p>
+          <blockquote>“Frase o cita inspirada.”</blockquote>
+
+          <div class="spotify-wrapper">
+            <h4>🎧 Escucha mientras catas</h4>
+            <div class="spotify-player">
+              <iframe style="border-radius:12px"
+                src="https://open.spotify.com/embed/track/[ID_DE_CANCION]?utm_source=generator&theme=0"
+                width="100%" height="152" loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <h3>Información General</h3>
+        <p>[Texto descriptivo del vino, elaboración, historia de la bodega...]</p>
+
+        <div class="map-wrapper">
+          <h4>📍 Origen del Vino</h4>
+          <div class="map-embed">
+            <iframe width="100%" height="576" src="[URL_DEL_MAPA_EMBEBIDO]"></iframe>
+          </div>
+          <p class="map-caption">[Texto sobre el viñedo o región.]</p>
+        </div>
+
+        <div class="ficcion-fermentada">
+          <h3><strong>Ficción Fermentada</strong></h3>
+          <h4><em>“[Título de la historia ficticia]”</em></h4>
+          <p><em>[Texto narrativo estilo Gorrión Wine Experience.]</em></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vino 2 -->
+    <section id="vino2" class="vino-section">
+      <div class="vino-header">
+        <h2>[Nombre de Bodega] · [Nombre del Vino 2]</h2>
+        <p>[Tipo de vino] · [Denominación de Origen]</p>
+      </div>
+
+      <div class="vino-content">
+        <div class="vino-detalles">
+          <p><strong>Tipo de Vino:</strong> ...</p>
+          <p><strong>Variedad:</strong> ...</p>
+          <p><strong>Año:</strong> ...</p>
+          <p><strong>Graduación:</strong> ...</p>
+          <p><strong>Servicio:</strong> ...</p>
+          <p><strong>Maridaje sugerido:</strong> ...</p>
+          <p><strong>Maridaje musical:</strong> <em>...</em> — [Artista]</p>
+          <blockquote>“Frase o cita inspirada.”</blockquote>
+
+          <div class="spotify-wrapper">
+            <h4>🎧 Escucha mientras catas</h4>
+            <div class="spotify-player">
+              <iframe style="border-radius:12px"
+                src="https://open.spotify.com/embed/track/[ID_DE_CANCION]?utm_source=generator&theme=0"
+                width="100%" height="152" loading="lazy"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+            </div>
+          </div>
+        </div>
+
+        <h3>Información General</h3>
+        <p>[Texto descriptivo del vino, elaboración, historia de la bodega...]</p>
+
+        <div class="map-wrapper">
+          <h4>📍 Origen del Vino</h4>
+          <div class="map-embed">
+            <iframe width="100%" height="576" src="[URL_DEL_MAPA_EMBEBIDO]"></iframe>
+          </div>
+          <p class="map-caption">[Texto sobre el viñedo o región.]</p>
+        </div>
+
+        <div class="ficcion-fermentada">
+          <h3><strong>Ficción Fermentada</strong></h3>
+          <h4><em>“[Título de la historia ficticia]”</em></h4>
+          <p><em>[Texto narrativo estilo Gorrión Wine Experience.]</em></p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 Gorrión Wine Experience · 
+      <a href="https://gorrionwine.crd.co">gorrionwine.crd.co</a>
+    </footer>
+  </main>
+
+  <script src="./assets/script.js"></script>
+</body>
+</html>
